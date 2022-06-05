@@ -1,0 +1,79 @@
+<div class="container-fluid">
+  <h2>Forms Task</h2>
+  <form #f="ngForm" (ngSubmit)="onSubmit()">
+    <!-- {{ formTask.value | json }} -->
+    <div ngModelGroup = "userData"></div>
+    <div class="form-group">
+      <label>Name: </label>
+      <input type="text" required name="Name" class="form-control" ngModel />
+    </div>
+    <div class="form-group">
+      <label>Email: </label>
+      <input
+        type="email"
+        required
+        class="form-control"
+        ngModel
+        name="email"
+        email
+        #email ="ngModel"
+      />
+      <p class="help-block" *ngIf="!email.valid && email.touched" >Please enter a valid email.</p>
+    </div>
+    <div class="form-group">
+      <label>Phone Number: </label>
+      <input
+        required
+        type="tel"
+        class="form-control"
+        name="phoneNumber"
+        ngModel
+      />
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input
+        type="password"
+        name="password"
+        required
+        class="form-control"
+        ngModel
+      />
+    </div>
+    <p>Gender:</p>
+    <div class="mb-3" *ngFor="let gender of genders">
+      <label>
+        <input type="radio" name="gender" ngModel [value]="gender" />
+        {{ gender }}
+      </label>
+    </div>
+    <button class="btn btn-primary" type="submit"
+  [disabled]="!f.valid">Submit</button>
+  </form>
+  <hr>
+  <div *ngIf ="submitted">
+    <table>
+      <thead>
+      <tr>
+      <th class="tableHead">Username</th>
+      <th class="tableHead">Email</th>
+      <th class="tableHead">Phone Number</th>
+      <th class="tableHead">Password</th>
+      <th class="tableHead">Gender</th>
+      </tr>
+    </thead>
+    <tbody >
+     <tr *ngFor="let user of formData">
+        <td>{{user.Name}}</td>
+      <td>{{user.email}}</td>
+      <td>{{user.phoneNumber}}</td>
+      <td>{{user.password}}</td>
+      <td>{{user.gender}}</td>
+      <td><button (click)="onEdit(user)">Edit</button></td>
+      <td><button (click)="onDelete(user)">Delete</button></td>
+     </tr>
+    </tbody>
+    </table>
+  </div>
+</div>
+
